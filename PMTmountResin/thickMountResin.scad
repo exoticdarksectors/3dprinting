@@ -14,24 +14,24 @@ $fn = 200;
 LEDRadius=6.4/2; //radius of 5.0mm inserted LED, plus a little wiggle room
 ScintillatorThickness = 52.9; // Includes wrapping.
 ScintillatorLength = 600.; // Scintillator length
-PMTGlassRadius = 56.8/2.; // From the datasheet
+PMTGlassRadius = 56.8/2.+0.5; // From the datasheet
 // OLD PMT: PMTGlassRadius = 52.9/2.; // 2.04*25.4/2; // Inches with mumetal; converted to mm
-PMTGlassLength = 114; // From the datasheet
+PMTGlassLength = 114+16*2-13.25; // From the datasheet
 // OLD PMT: PMTGlassLength = 90.932; // Glass length measured to be 3.580 inches = 90.932
 PMTPlasticRadius = 60.5/2.; // From the datasheet for E5859-11
-PMTPlasticLength = 65.5;
+PMTPlasticLength = 65.5+4*2+13.25;
 // OLD PMT: PMTPlasticRadius = 28.2575+0.5; 
 // OLD PMT: PMTPlasticLength = 33.02; // Plastic length measured to be 1.30 inches = 33.02 mm
 epsilon = 0.006;
 
 // General size parameters
-WallThick = 3.6;
+WallThick = 3.3+0.1;
 overlap = 2.0; // Used to extend parts into each other to make sure they overlap
 groovethick = 1.7; // Thickness of mating grooves
 groovedepth = 6.0; // Depth of mating grooves
-PrintVolumeX = 120; // Limits of printer volume
-PrintVolumeY = 120;
-PrintVolumeZ = 120;
+PrintVolumeX = 120+20; // Limits of printer volume
+PrintVolumeY = 120+20;
+PrintVolumeZ = 120+20;
 
 // Flags indicating the gender of tab&groove structures
 female = 1;
@@ -250,9 +250,9 @@ module AmpShield() {
 module PMTBase(diamscale=1.,lengthscale=1.) {
  // The plastic PMT base that attaches to the back of the PMT plastic section.
  Section1Diameter = 2.198*25.4*diamscale;
- Section1Length = 0.452*25.4*lengthscale;
+ Section1Length = (0.452*25.4)*lengthscale;
  Section2Diameter = 2.445*25.4*diamscale;
- Section2Length = 0.682*25.4*lengthscale;
+ Section2Length = (0.682*25.4)*lengthscale;
   translate([0,0,-PMTGlassLength-PMTPlasticLength-Section1Length/2-0.])
  union() {
  color("Yellow")
@@ -334,8 +334,8 @@ module EndGroove(gender=male,LeftRight=+1,TopBottom=+1) {
  depth = 6;
  thick = 1.8;
  length = 16;
- extrathickness = 0.2;
- extralength = 0.4;
+ extrathickness = 0.2+0.15;
+ extralength = 0.4+0.15;
  extradepth = 0.4;
  // First make the vertical tabs
  translate([LeftRight*28.4,TopBottom*11,-22])
@@ -568,13 +568,13 @@ if (0) {
 if (0) {
    TopFront();
 }
-if (0) {
+if (1) {
    BottomFront();
 }
 if (0) {
    TopBack();
 }
-if (1) {
+if (0) {
   BottomBack();
 }
 if (0) {
